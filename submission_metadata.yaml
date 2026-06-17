@@ -1,0 +1,66 @@
+team_name: "talentrank-ai"
+
+primary_contact:
+  name: ""          # ← fill in your name
+  email: ""         # ← fill in your email
+  phone: ""         # ← fill in your phone (+91-XXXXXXXXXX)
+
+team_members:
+  - name: ""        # ← fill in your name
+    email: ""       # ← fill in your email
+    role: "ML Engineer"
+
+github_repo: "https://github.com/bhoomiihere/talentrank-ai"
+
+sandbox_link: ""    # ← add Colab / HuggingFace Spaces link (required for submission)
+
+reproduce_command: "python rank.py --candidates ./candidates.jsonl --out ./submission.csv"
+
+compute:
+  platform: "Local Windows Laptop"
+  cpu_cores: 8
+  ram_gb: 16
+  python_version: "3.11"
+  os: "Windows 11"
+  uses_gpu_for_inference: false
+  has_network_during_ranking: false
+  pre_computation_required: false
+  pre_computation_time_minutes: 0
+
+ai_tools_used:
+  - "Claude"
+
+ai_usage_summary: |
+  Used Claude (Anthropic) for architecture discussion, JD analysis, and code review.
+  All scoring logic, signal weighting, and pipeline design are original engineering work.
+  No candidate data was processed by any external LLM.
+  Ranking runs fully offline — zero API calls during inference.
+
+methodology_summary: |
+  TalentRank AI is a career-first candidate scoring pipeline built around
+  careful reading of the JD rather than keyword matching.
+
+  The core insight: career trajectory is the decisive signal, not skill keywords.
+  A Marketing Manager with AI skills is not a fit. A Search Engineer with 4 years
+  at a product company building retrieval systems is.
+
+  Five scoring components:
+  (1) Career relevance (40%): AI/ML titles at product companies score highest.
+  Consulting-only backgrounds and non-AI current titles are penalised.
+  (2) Skill quality (25%): each skill weighted by proficiency, endorsement count,
+  and months of active use — not just presence.
+  (3) Behavioral signals (20%): 7 Redrob signals normalised across availability,
+  engagement quality, platform trust, GitHub activity, and verification.
+  (4) Experience fit (10%): smooth decay scoring outside the 5-9yr target range.
+  (5) Nice-to-have skills + assessment bonus (5%).
+
+  Honeypot detection: impossible profiles (expert skill with 0 months use,
+  duration exceeding company age) are ranked to the bottom.
+  Result: 0 honeypots in top 100. Runtime: ~50 seconds on CPU.
+
+declarations:
+  read_submission_spec: true
+  code_is_original_work: true
+  no_collusion: true
+  honeypot_check_done: true
+  reproduction_tested: true

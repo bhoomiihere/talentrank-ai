@@ -1,0 +1,3 @@
+# TalentRank AI — No external dependencies
+# Pure Python standard library only (json, csv, argparse, datetime, pathlib)
+# Python >= 3.8 required
